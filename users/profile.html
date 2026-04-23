@@ -1,0 +1,43 @@
+{% extends "layout/base.html" %}
+{% block content %}
+<div class="min-h-screen bg-gray-950 text-white p-6">
+  <div class="max-w-2xl mx-auto">
+
+    <div class="bg-gray-800 rounded-2xl p-6">
+      
+      <!-- Profile Image -->
+      <div class="flex items-center gap-6 mb-6">
+        {% if profile.profile_image %}
+        <img src="{{ profile.profile_image.url }}" class="w-24 h-24 rounded-full object-cover border-4 border-green-500" alt="Profile">
+        {% else %}
+        <div class="w-24 h-24 rounded-full bg-green-700 flex items-center justify-center text-4xl">👤</div>
+        {% endif %}
+        <div>
+          <h1 class="text-2xl font-bold">{{ request.user.first_name }} {{ request.user.last_name }}</h1>
+          <p class="text-gray-400">{{ request.user.email }}</p>
+          <span class="text-xs bg-green-900 text-green-300 px-2 py-1 rounded-full mt-1 inline-block">{{ request.user.type }}</span>
+        </div>
+      </div>
+
+      <!-- Profile Details -->
+      <div class="space-y-3 border-t border-gray-700 pt-4">
+        <p><span class="text-gray-400">Bio:</span> {{ profile.bio|default:"No bio yet" }}</p>
+        <p><span class="text-gray-400">Location:</span> {{ profile.location|default:"Not set" }}</p>
+        <p><span class="text-gray-400">Phone:</span> {{ profile.phone|default:"Not set" }}</p>
+        {% if request.user.type == "PROVIDER" %}
+        <p><span class="text-gray-400">Skill Category:</span> {{ profile.skill_category|default:"Not set" }}</p>
+        {% endif %}
+      </div>
+
+      <div class="flex gap-3 mt-6">
+        <a href="{% url 'users:profile_edit' %}" class="bg-green-600 hover:bg-green-500 px-6 py-2 rounded-lg text-sm">Edit Profile</a>
+        {% if request.user.type == "PROVIDER" %}
+        <a href="{% url 'skills:skill_create' %}" class="bg-blue-600 hover:bg-blue-500 px-6 py-2 rounded-lg text-sm">+ List a Skill</a>
+        {% endif %}
+        <a href="{% url 'skills:skills_list' %}" class="bg-gray-700 hover:bg-gray-600 px-6 py-2 rounded-lg text-sm">Browse Skills</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

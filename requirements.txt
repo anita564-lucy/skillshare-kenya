@@ -5,8 +5,10 @@ cloudinary==1.44.1
 Django==6.0.3
 django-cloudinary-storage==0.3.0
 django-environ==0.13.0
+gunicorn==25.3.0
 idna==3.11
 mysqlclient==2.2.8
+packaging==26.1
 pillow==12.2.0
 PyMySQL==1.1.2
 requests==2.33.1
